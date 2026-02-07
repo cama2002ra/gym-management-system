@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const {
-    createUser,
-    getAllUsers,
-    getUser,
-    updateUser,
-    deleteUser
-} = require('../controllers/userController');
+    createTrainer,
+    getAllTrainers,
+    getTrainer,
+    updateTrainer,
+    deleteTrainer
+} = require('../controllers/trainerController');
 
 router.route('/')
-    .post(createUser)
-    .get(getAllUsers);
+    .post(createTrainer)
+    .get(getAllTrainers);
 
 router.route('/:id')
-    .get(getUser)
-    .put(updateUser)
-    .delete(deleteUser);
+    .get(getTrainer)
+    .put(updateTrainer)
+    .delete(deleteTrainer);
 
 module.exports = router;
