@@ -7,6 +7,7 @@ const connectDB = require('./src/config/db');
 const userRoutes = require('./src/routes/userRoutes');
 const trainerRoutes = require('./src/routes/trainerRoutes');
 const workoutRoutes = require('./src/routes/workoutRoutes');
+const progressRoutes = require('./src/routes/progressRoutes');
 
 const app = express();
 
@@ -21,6 +22,7 @@ connectDB();
 app.use('/api/users', userRoutes);
 app.use('/api/trainers', trainerRoutes);
 app.use('/api/workouts', workoutRoutes);
+app.use('/api/progress', progressRoutes);
 
 // Basic route
 app.get('/', (req, res) => {
