@@ -1,12 +1,12 @@
-const User = require('../models/userModel');
+const Trainer = require('../models/trainerModel');
 
-// Create new user
-exports.createUser = async (req, res) => {
+// Create new trainer
+exports.createTrainer = async (req, res) => {
     try {
-        const user = await User.create(req.body);
+        const trainer = await Trainer.create(req.body);
         res.status(201).json({
             success: true,
-            data: user
+            data: trainer
         });
     } catch (error) {
         res.status(400).json({
@@ -16,20 +16,20 @@ exports.createUser = async (req, res) => {
     }
 };
 
-// Get all users with filters
-exports.getAllUsers = async (req, res) => {
+// Get all trainers with filters
+exports.getAllTrainers = async (req, res) => {
     try {
-        const { active, membershipType } = req.query;
-        let filter = {};
+        const { available, specialization } = req.query;
+        const filter = {};
         
-        if (active) filter.active = active === 'true';
-        if (membershipType) filter.membershipType = membershipType;
+        if (available) filter.available = available === 'true';
+        if (specialization) filter.specialization = specialization;
         
-        const users = await User.find(filter);
+        const trainers = await Trainer.find(filter);
         res.status(200).json({
             success: true,
-            count: users.length,
-            data: users
+            count: trainers.length,
+            data: trainers
         });
     } catch (error) {
         res.status(500).json({
@@ -39,19 +39,19 @@ exports.getAllUsers = async (req, res) => {
     }
 };
 
-// Get single user
-exports.getUser = async (req, res) => {
+// Get single trainer
+exports.getTrainer = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
-        if (!user) {
+        const trainer = await Trainer.findById(req.params.id);
+        if (!trainer) {
             return res.status(404).json({
                 success: false,
-                error: 'User not found'
+                error: 'Trainer not found'
             });
         }
         res.status(200).json({
             success: true,
-            data: user
+            data: trainer
         });
     } catch (error) {
         res.status(500).json({
@@ -61,23 +61,23 @@ exports.getUser = async (req, res) => {
     }
 };
 
-// Update user
-exports.updateUser = async (req, res) => {
+// Update trainer
+exports.updateTrainer = async (req, res) => {
     try {
-        const user = await User.findByIdAndUpdate(
+        const trainer = await Trainer.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true, runValidators: true }
         );
-        if (!user) {
+        if (!trainer) {
             return res.status(404).json({
                 success: false,
-                error: 'User not found'
+                error: 'Trainer not found'
             });
         }
         res.status(200).json({
             success: true,
-            data: user
+            data: trainer
         });
     } catch (error) {
         res.status(400).json({
@@ -87,19 +87,19 @@ exports.updateUser = async (req, res) => {
     }
 };
 
-// Delete user
-exports.deleteUser = async (req, res) => {
+// Delete trainer
+exports.deleteTrainer = async (req, res) => {
     try {
-        const user = await User.findByIdAndDelete(req.params.id);
-        if (!user) {
+        const trainer = await Trainer.findByIdAndDelete(req.params.id);
+        if (!trainer) {
             return res.status(404).json({
                 success: false,
-                error: 'User not found'
+                error: 'Trainer not found'
             });
         }
         res.status(200).json({
             success: true,
-            message: 'User deleted successfully'
+            message: 'Trainer deleted successfully'
         });
     } catch (error) {
         res.status(500).json({
